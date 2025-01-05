@@ -4522,11 +4522,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Eng-Ammar\\source\\repos\\BookMangementSystem\\BookMangementSystemApi\\BookMangementSystemApi.csproj",
+      "projectUniqueName": "E:\\My Projects\\Book_Mangement_System\\BookMangementSystemApi\\BookMangementSystemApi.csproj",
       "projectName": "BookMangementSystemApi",
-      "projectPath": "C:\\Users\\Eng-Ammar\\source\\repos\\BookMangementSystem\\BookMangementSystemApi\\BookMangementSystemApi.csproj",
+      "projectPath": "E:\\My Projects\\Book_Mangement_System\\BookMangementSystemApi\\BookMangementSystemApi.csproj",
       "packagesPath": "C:\\Users\\Eng-Ammar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Eng-Ammar\\source\\repos\\BookMangementSystem\\BookMangementSystemApi\\obj\\",
+      "outputPath": "E:\\My Projects\\Book_Mangement_System\\BookMangementSystemApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
