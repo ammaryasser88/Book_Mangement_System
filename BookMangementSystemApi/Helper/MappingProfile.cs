@@ -14,6 +14,9 @@ namespace BookMangementSystemApi.Helper
 
             CreateMap<ReaderRequest, Reader>().ReverseMap();
             CreateMap<Reader, ReaderResponse>();
+
+            CreateMap<AutherRequest, Auther>().ReverseMap();
+            CreateMap<Auther, AutherResponse>();
         }
     }
 }

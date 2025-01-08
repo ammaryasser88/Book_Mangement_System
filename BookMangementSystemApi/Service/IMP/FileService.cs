@@ -7,7 +7,7 @@ namespace BookMangementSystemApi.Service.IMP
     public class FileService : IFileService
     {
 
-        private readonly HashSet<string> _allowedExtenstion = new HashSet<string>() { ".png", ".jpg" };
+        private readonly HashSet<string> _allowedExtenstion = new HashSet<string>() { ".png", ".jpg",".jpeg" };
         private readonly long _maxAllowedPosterSize = 5 * 1024 * 1024;
 
         public async Task DeleteFile(string image)

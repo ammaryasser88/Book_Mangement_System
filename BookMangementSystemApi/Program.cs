@@ -3,6 +3,7 @@ using BookMangementSystemApi.Data;
 using BookMangementSystemApi.Exceptions;
 using BookMangementSystemApi.Models;
 using BookMangementSystemApi.Repository;
+using BookMangementSystemApi.Repository.IMP;
 using BookMangementSystemApi.Service;
 using BookMangementSystemApi.Service.IMP;
 using BookMangementSystemApi.Validation;
@@ -27,6 +28,7 @@ namespace BookMangementSystemApi
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped(typeof(IBookRepository), typeof(BookRepository));
             builder.Services.AddScoped(typeof(IReaderRepository),typeof(ReaderRepository));
+            builder.Services.AddScoped(typeof(IAutherRepository),typeof(AutherRepository));
 
 
             builder.Services.AddScoped<IBookService, BookService>();
@@ -40,6 +42,8 @@ namespace BookMangementSystemApi
             builder.Services.AddScoped<IReaderValidator, ReaderValidator>();
 
             builder.Services.AddScoped<IFileService, FileService>();
+
+            builder.Services.AddScoped<IAutherService, AutherService>();
             
 
           

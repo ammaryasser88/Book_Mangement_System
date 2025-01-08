@@ -10,6 +10,7 @@ namespace BookMangementSystemApi.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Reader> Readers { get; set; }
         public DbSet<Borrow> Borrows { get; set; }
+        public DbSet<Auther> Auther { get; set; }
 
 
     }

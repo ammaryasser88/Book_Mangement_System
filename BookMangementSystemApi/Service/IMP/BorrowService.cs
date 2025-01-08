@@ -12,9 +12,9 @@ namespace BookMangementSystemApi.Service.IMP
     public class BorrowService : IBorrowService
     {
         private readonly IGenericRepository<Borrow> _repository;
-        private readonly IGenericRepository<Book> _bookRepository;
+        private readonly IBookRepository _bookRepository;
 
-        public BorrowService(IGenericRepository<Borrow> repository, IGenericRepository<Book> bookRepository)
+        public BorrowService(IGenericRepository<Borrow> repository, IBookRepository bookRepository)
         {
             _repository = repository;
             _bookRepository = bookRepository;

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookMangementSystemApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250102191305_Create_BookDb")]
-    partial class Create_BookDb
+    [Migration("20250105221615_initial_database")]
+    partial class initial_database
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,23 @@ namespace BookMangementSystemApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BookMangementSystemApi.Models.Auther", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Auther");
+                });
+
             modelBuilder.Entity("BookMangementSystemApi.Models.Book", b =>
                 {
                     b.Property<int>("Id")
@@ -33,7 +50,10 @@ namespace BookMangementSystemApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AutherName")
+                    b.Property<int>("AutherID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImagePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -49,6 +69,8 @@ namespace BookMangementSystemApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AutherID");
 
                     b.ToTable("Books");
                 });
@@ -115,6 +137,17 @@ namespace BookMangementSystemApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Readers");
+                });
+
+            modelBuilder.Entity("BookMangementSystemApi.Models.Book", b =>
+                {
+                    b.HasOne("BookMangementSystemApi.Models.Auther", "Auther")
+                        .WithMany()
+                        .HasForeignKey("AutherID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Auther");
                 });
 
             modelBuilder.Entity("BookMangementSystemApi.Models.Borrow", b =>

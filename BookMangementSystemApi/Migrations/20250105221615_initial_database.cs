@@ -6,25 +6,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BookMangementSystemApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Create_BookDb : Migration
+    public partial class initial_database : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Books",
+                name: "Auther",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AutherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    InsertDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Books", x => x.Id);
+                    table.PrimaryKey("PK_Auther", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -41,6 +38,29 @@ namespace BookMangementSystemApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Readers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AutherID = table.Column<int>(type: "int", nullable: false),
+                    InsertDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Books_Auther_AutherID",
+                        column: x => x.AutherID,
+                        principalTable: "Auther",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,6 +94,11 @@ namespace BookMangementSystemApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Books_AutherID",
+                table: "Books",
+                column: "AutherID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Borrows_BookId",
                 table: "Borrows",
                 column: "BookId");
@@ -95,6 +120,9 @@ namespace BookMangementSystemApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Readers");
+
+            migrationBuilder.DropTable(
+                name: "Auther");
         }
     }
 }

@@ -5,6 +5,142 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/auther": {
+      "post": {
+        "tags": [
+          "Auther"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutherRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutherRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutherRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Auther"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Auther"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auther/{id}": {
+      "get": {
+        "tags": [
+          "Auther"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Auther"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutherRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutherRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutherRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/book": {
       "post": {
         "tags": [
@@ -19,8 +155,9 @@
                   "Title": {
                     "type": "string"
                   },
-                  "AutherName": {
-                    "type": "string"
+                  "AutherID": {
+                    "type": "integer",
+                    "format": "int32"
                   },
                   "Image": {
                     "type": "string",
@@ -32,7 +169,7 @@
                 "Title": {
                   "style": "form"
                 },
-                "AutherName": {
+                "AutherID": {
                   "style": "form"
                 },
                 "Image": {
@@ -51,6 +188,15 @@
       "get": {
         "tags": [
           "Book"
+        ],
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -167,8 +313,9 @@
                   "Title": {
                     "type": "string"
                   },
-                  "AutherName": {
-                    "type": "string"
+                  "AutherID": {
+                    "type": "integer",
+                    "format": "int32"
                   },
                   "Image": {
                     "type": "string",
@@ -180,7 +327,7 @@
                 "Title": {
                   "style": "form"
                 },
-                "AutherName": {
+                "AutherID": {
                   "style": "form"
                 },
                 "Image": {
@@ -346,6 +493,16 @@
   },
   "components": {
     "schemas": {
+      "AutherRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "BorrowRequest": {
         "type": "object",
         "properties": {

@@ -3,7 +3,7 @@
     public class BookRequest
     {
         public string Title { get; set; }
-        public string AutherName { get; set; }
+        public int AutherID { get; set; }
         public IFormFile? Image { get; set; }
 
     }

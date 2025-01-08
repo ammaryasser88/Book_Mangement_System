@@ -7,21 +7,25 @@ using BookMangementSystemApi.Repository;
 using BookMangementSystemApi.Validation;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace BookMangementSystemApi.Service.IMP
 {
     public class BookService : IBookService
     {
-        private readonly IGenericRepository<Book> _repository;
+        private readonly IBookRepository _bookRepository;
+        private readonly IAutherRepository _autherRepository;
         private readonly IMapper _mapper;
         private readonly IBookValidator _bookValidate;
         private readonly IFileService _fileService;
-        public BookService(IGenericRepository<Book> repository, IMapper mapper, IBookValidator bookValidate, IFileService fileService)
+       
+        public BookService(IBookRepository repository, IMapper mapper, IBookValidator bookValidate, IFileService fileService, IAutherRepository autherRepository)
         {
-            _repository = repository;
+            _bookRepository = repository;
             _mapper = mapper;
             _bookValidate = bookValidate;
             _fileService = fileService;
+            _autherRepository = autherRepository;
         }
 
         public async Task<BookResponse> AddBook(BookRequest bookRequest)
@@ -34,40 +38,50 @@ namespace BookMangementSystemApi.Service.IMP
             }
 
 
+            var auther = _autherRepository.GetByIdAsync(bookRequest.AutherID);
 
             string path = await _fileService.SaveFile(bookRequest.Image);
             var newBook = _mapper.Map<Book>(bookRequest);
 
-
             newBook.ImagePath = path;
 
-            await _repository.AddAsync(newBook);
-            await _repository.SaveAsync();
+            await _bookRepository.AddAsync(newBook);
+            await _bookRepository.SaveAsync();
 
-            return _mapper.Map<BookResponse>(newBook);
+            var bookResponse =_mapper.Map<BookResponse>(newBook);
+            bookResponse.Auther.Name = auther.Result.Name;
+            return bookResponse;
         }
 
-        public async Task<IEnumerable<BookResponse>> GetAllBooks()
+        public async Task<IEnumerable<BookResponse>> GetAllBooks(string? title)
         {
-            var books = await _repository.GetAllAsync();
-           
-            return _mapper.Map<IEnumerable<BookResponse>>(books);
-
+            IEnumerable<Book> booksWithAuthers;
+            if (title is null)
+            {
+                booksWithAuthers = await _bookRepository.GetAllBooksWithAuthers();
+            }
+            else
+            {
+                booksWithAuthers = await _bookRepository.GetBooksByTitleLike(title);
+            }
+            return _mapper.Map<IEnumerable<BookResponse>>(booksWithAuthers);
         }
 
         public async Task<BookResponse> GetBookById(int id)
         {
-            var book = await _repository.GetByIdAsync(id);
+            var book = await _bookRepository.GetBookByIdWithAuther(id);
             if (book is null)
             {
                 throw new ApiException("Book Is Not Found", (int)HttpStatusCode.NotFound);
             }
-            return _mapper.Map<BookResponse>(book);
+
+            var bookResponse = _mapper.Map<BookResponse>(book);
+            return bookResponse;
         }
 
         public async Task<BookResponse> UpdateBook(int id, BookRequest bookRequest)
         {
-            var book = await _repository.GetByIdAsync(id);
+            var book = await _bookRepository.GetByIdAsync(id);
             if (book is null)
             {
                 throw new ApiException("Book Is Not Found", (int)HttpStatusCode.NotFound);
@@ -82,8 +96,8 @@ namespace BookMangementSystemApi.Service.IMP
             }
            
 
-            await _repository.Update(bookUpdated);
-            await _repository.SaveAsync();
+            await _bookRepository.UpdateAsync(bookUpdated);
+            await _bookRepository.SaveAsync();
 
             await _fileService.DeleteFile(imagePath);
 
@@ -92,15 +106,15 @@ namespace BookMangementSystemApi.Service.IMP
 
         public async Task DeleteBook(int id)
         {
-            var book = await _repository.GetByIdAsync(id);
+            var book = await _bookRepository.GetByIdAsync(id);
             if(book is null)
             {
                 throw new ApiException("Book Is Not Found" , (int)HttpStatusCode.NotFound);
             }
             var imagePath = book.ImagePath;
 
-            await _repository.Delete(book);
-            await _repository.SaveAsync();
+            await _bookRepository.DeleteAsync(book);
+            await _bookRepository.SaveAsync();
 
             await _fileService.DeleteFile(imagePath);
         }

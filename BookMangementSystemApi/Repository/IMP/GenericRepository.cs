@@ -2,7 +2,7 @@
 using BookMangementSystemApi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookMangementSystemApi.Repository
+namespace BookMangementSystemApi.Repository.IMP
 {
     using Microsoft.EntityFrameworkCore;
     using System.Linq.Expressions;
@@ -34,12 +34,12 @@ namespace BookMangementSystemApi.Repository
             await _dbSet.AddAsync(entity);
         }
 
-        public async Task Update(T entity)
+        public async Task UpdateAsync(T entity)
         {
             _dbSet.Update(entity);
         }
 
-        public async Task Delete(T entity)
+        public async Task DeleteAsync(T entity)
         {
             _dbSet.Remove(entity);
         }
@@ -48,12 +48,12 @@ namespace BookMangementSystemApi.Repository
         {
             await _context.SaveChangesAsync();
         }
-     }
+    }
 
 
 
-       
 
 
-   
+
+
 }

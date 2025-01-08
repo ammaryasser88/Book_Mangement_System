@@ -42,9 +42,9 @@ namespace BookMangementSystemApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ReadAll()
+        public async Task<IActionResult> ReadAll([FromQuery]string? title)
         {
-            var books = await _bookService.GetAllBooks();
+            var books = await _bookService.GetAllBooks(title);
             return Ok(books);
         }
 

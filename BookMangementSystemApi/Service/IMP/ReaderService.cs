@@ -11,12 +11,12 @@ namespace BookMangementSystemApi.Service.IMP
 {
     public class ReaderService : IReaderService
     {
-        private readonly IGenericRepository<Reader> _repository;
+        private readonly IReaderRepository _repository;
         private readonly IMapper _mapper;
         private readonly IReaderValidator _readerValidate;
 
 
-        public ReaderService(IGenericRepository<Reader> repository, IMapper mapper, IReaderValidator readerValidate)
+        public ReaderService(IReaderRepository repository, IMapper mapper, IReaderValidator readerValidate)
         {
             _repository = repository;
             _mapper = mapper;
@@ -56,7 +56,7 @@ namespace BookMangementSystemApi.Service.IMP
             }
             _mapper.Map(readerRequest, reader);
 
-            _repository.Update(reader);
+            _repository.UpdateAsync(reader);
             await _repository.SaveAsync();
 
             return _mapper.Map<ReaderResponse>(reader);
@@ -66,7 +66,7 @@ namespace BookMangementSystemApi.Service.IMP
         {
             var reader = await _repository.GetByIdAsync(id);
 
-            _repository.Delete(reader);
+            _repository.DeleteAsync(reader);
             await _repository.SaveAsync();
         }
 

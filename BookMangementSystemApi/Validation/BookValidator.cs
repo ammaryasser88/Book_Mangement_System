@@ -14,7 +14,7 @@ namespace BookMangementSystemApi.Validation
 
         public async Task ValidateBookTitleIsUnique(string text)
         {
-            var book = await _bookRepository.GetBooksByTitle(text);
+            var book = await _bookRepository.GetBookByTitle(text);
             if (book != null)
             {
                 throw new ApiException("An Existing Book Can Not Be Added.", 400);

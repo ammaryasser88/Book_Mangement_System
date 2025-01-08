@@ -1,5 +1,84 @@
 [
   {
+    "ContainingType": "BookMangementSystemApi.Controllers.AutherController",
+    "Method": "Create",
+    "RelativePath": "api/auther",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "autherRequest",
+        "Type": "BookMangementSystemApi.Dtos.Request.AutherRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BookMangementSystemApi.Controllers.AutherController",
+    "Method": "ReadAll",
+    "RelativePath": "api/auther",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BookMangementSystemApi.Controllers.AutherController",
+    "Method": "Delete",
+    "RelativePath": "api/auther",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BookMangementSystemApi.Controllers.AutherController",
+    "Method": "GetById",
+    "RelativePath": "api/auther/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BookMangementSystemApi.Controllers.AutherController",
+    "Method": "Update",
+    "RelativePath": "api/auther/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "autherRequest",
+        "Type": "BookMangementSystemApi.Dtos.Request.AutherRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "BookMangementSystemApi.Controllers.BookController",
     "Method": "Create",
     "RelativePath": "api/book",
@@ -13,8 +92,8 @@
         "IsRequired": false
       },
       {
-        "Name": "AutherName",
-        "Type": "System.String",
+        "Name": "AutherID",
+        "Type": "System.Int32",
         "IsRequired": false
       },
       {
@@ -32,7 +111,13 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "title",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -70,8 +155,8 @@
         "IsRequired": false
       },
       {
-        "Name": "AutherName",
-        "Type": "System.String",
+        "Name": "AutherID",
+        "Type": "System.Int32",
         "IsRequired": false
       },
       {

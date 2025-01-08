@@ -6,7 +6,7 @@ namespace BookMangementSystemApi.Service
 {
     public interface IBookService
     {
-        Task<IEnumerable<BookResponse>> GetAllBooks();
+        Task<IEnumerable<BookResponse>> GetAllBooks(string? title);
         Task<BookResponse> GetBookById(int id);
         Task<BookResponse> AddBook(BookRequest bookRequest);
         Task<BookResponse> UpdateBook(int id, BookRequest bookRequest);
